@@ -6,6 +6,7 @@ require('dotenv').config()
 const { app_port, client_url } = require('./config/environment')
 require('./config/db');
 const ChatSocketService = require('./services/ChatSocket.service');
+const VideoSocket = require('./services/VideoSocket.service');
 
 const app = express();
 const server = http.createServer(app);
@@ -20,6 +21,7 @@ const io = socketIo(server, {
 });
 
 new ChatSocketService(io).run();
+new VideoSocket(io).run();
 
 app.get('/', (req, res) => {
     res.send('Server is running');
